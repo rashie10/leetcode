@@ -1,0 +1,37 @@
+#define SIZE 26
+#define OFFSET 'a'
+
+char** commonChars(char** words, int wordsSize, int* returnSize) {
+    int globalFreq[SIZE];
+    for (int i = 0; i < SIZE; i++) {
+        globalFreq[i] = INT_MAX;  // Initialize to max to find minimum
+    }
+
+    for (int i = 0; i < wordsSize; i++) {
+        int localFreq[SIZE] = {0};  // Local frequency for this word
+
+    
+        for (int j = 0; words[i][j]; j++) {
+            localFreq[words[i][j] - OFFSET]++;
+        }
+
+    
+        for (int k = 0; k < SIZE; k++) {
+            if (localFreq[k] < globalFreq[k]) {
+                globalFreq[k] = localFreq[k];
+            }
+        }
+    }
+    char** result = (char**)malloc(sizeof(char*) * 100);
+    *returnSize = 0;
+    for (int i = 0; i < SIZE; i++) {
+        while (globalFreq[i]-- > 0) {
+            result[*returnSize] = (char*)malloc(2);
+            result[*returnSize][0] = i + OFFSET;
+            result[*returnSize][1] = '\0';
+            (*returnSize)++;
+        }
+    }
+
+    return result;
+}
