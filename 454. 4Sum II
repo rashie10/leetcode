@@ -1,24 +1,24 @@
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
 class Solution {
 public:
-   int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
-       unordered_map<int, int> mp;
+    int numPairsDivisibleBy60(vector<int>& time) {
+        unordered_map<int, int> mp; // remainder -> count
+        int count = 0;
 
-       
-       for (int k : nums3) {
-           for (int l : nums4) {
-               mp[k + l]++;
-           }
-       }
+        for (int i = 0; i < time.size(); ++i) {
+            int rem = time[i] % 60;
+            int complement = (60 - rem) % 60;
 
-       int count = 0;
+            if (mp.find(complement) != mp.end()) {
+                count += mp[complement];
+            }
 
-       
-       for (int i : nums1) {
-           for (int j : nums2) {
-               count += mp[-(i + j)];
-           }
-       }
+            mp[rem]++;
+        }
 
-       return count;
-   }
+        return count;
+    }
 };
