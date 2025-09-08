@@ -1,19 +1,14 @@
-/**
- * Note: The returned array must be malloced, assume caller calls free().
- */
-int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
-    *returnSize = 2;   // because we always return two indices
-    int* result = (int*)malloc(2 * sizeof(int));
-    
-    for (int i = 0; i < numsSize; i++) {
-        for (int j = i + 1; j < numsSize; j++) {  // j = i+1 to avoid using same element twice
-            if (nums[i] + nums[j] == target) {
-                result[0] = i;
-                result[1] = j;
-                return result;
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> num_map;
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
+            if (num_map.find(complement) != num_map.end()) {
+                return {num_map[complement], i}; 
             }
+            num_map[nums[i]] = i; 
         }
+        return {}; 
     }
-    
-    return NULL; // in case no solution found (though problem guarantees one)
-}
+};
