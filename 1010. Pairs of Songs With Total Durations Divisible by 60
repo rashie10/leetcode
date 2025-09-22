@@ -1,0 +1,24 @@
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    int numPairsDivisibleBy60(vector<int>& time) {
+        unordered_map<int, int> mp; // remainder -> count
+        int count = 0;
+
+        for (int i = 0; i < time.size(); ++i) {
+            int rem = time[i] % 60;
+            int complement = (60 - rem) % 60;
+
+            if (mp.find(complement) != mp.end()) {
+                count += mp[complement];
+            }
+
+            mp[rem]++;
+        }
+
+        return count;
+    }
+};
