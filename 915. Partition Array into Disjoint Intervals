@@ -24,3 +24,23 @@ public:
         return n;
     }
 };
+
+METHOD 2:
+class Solution {
+public:
+    int partitionDisjoint(vector<int>& nums) {
+        int n = nums.size();
+        int leftmax=nums[0];
+        int overallmax=nums[0];
+        int partitionidx=0;
+        for(int i=1;i<n;i++){
+            overallmax=max(overallmax,nums[i]);
+            if(nums[i]<leftmax){
+                leftmax=overallmax;
+                partitionidx=i;
+            }
+        }
+        return partitionidx+1;
+    }
+};
+
