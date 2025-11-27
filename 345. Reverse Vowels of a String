@@ -1,0 +1,33 @@
+#include <string>
+#include <unordered_set>
+#include <algorithm> // For std::swap
+
+class Solution {
+public:
+    string reverseVowels(string s) {
+        // Define a set of vowels for quick lookup
+        std::unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        
+        int left = 0;
+        int right = s.length() - 1;
+
+        while (left < right) {
+            // Move left pointer until a vowel is found
+            while (left < right && vowels.find(s[left]) == vowels.end()) {
+                left++;
+            }
+            // Move right pointer until a vowel is found
+            while (left < right && vowels.find(s[right]) == vowels.end()) {
+                right--;
+            }
+
+            // If both pointers found vowels and haven't crossed, swap them
+            if (left < right) {
+                std::swap(s[left], s[right]);
+                left++;
+                right--;
+            }
+        }
+        return s;
+    }
+};
